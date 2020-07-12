@@ -1,12 +1,24 @@
-// Setup empty JS object to act as endpoint for all routes
-projectData = {};
-
-// Require Express to run server and routes
 // Express to run server and routes
 const express = require('express');
-
 // Start up an instance of app
 const app = express();
+
+const projectData = {};
+
+// // Add a GET route
+// change hello to projectData after testing
+app.get('/dataget', sendData);
+function sendData (request, response) {
+	console.log(request)
+  	response.send("hello"); 
+}; 
+
+// // POST method route
+app.post('/datapost', function (req, res) {
+  res.send('POST received')
+})
+
+
 
 /* Middleware*/
 /* Dependencies */
@@ -33,16 +45,4 @@ function listening() {
 	console.log("server running");
 	console.log('running on localhost: $(port)');
 }
-
-// // Add a GET route
-// app.get('/', sendData);
-// function sendData (request, response) {
-//   response.send(projectData);
-// };
-
-// // POST method route
-// app.post('/', function (req, res) {
-//   res.send('POST received')
-// })
-
 
