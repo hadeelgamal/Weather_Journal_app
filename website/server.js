@@ -4,19 +4,35 @@ const express = require('express');
 const app = express();
 
 const projectData = {};
+// // POST method route
+app.post('/datapost', datapost);
+function datapost (req, res){
+// projectData.push(req.body);
+    let projectData = req.body;
+    console.log(req);
+};
 
+// app.post ('/newData', newData);
+// function newData(){
+// 	newEntry = { 
+// 		temperature: req.body.temperature
+// 		date: req.body.date
+// 		userResponse: req.body.userResponse
+
+// 	}
+// }
+
+
+// projectData.push(newEntry)
+// res.send(projectData)
+// console.log(projectData)
 // // Add a GET route
 // change hello to projectData after testing
 app.get('/dataget', sendData);
 function sendData (request, response) {
 	console.log(request)
-  	response.send("hello"); 
+  	response.send(projectData); 
 }; 
-
-// // POST method route
-app.post('/datapost', function (req, res) {
-  res.send('POST received')
-})
 
 
 

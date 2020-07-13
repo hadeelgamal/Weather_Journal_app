@@ -1,46 +1,60 @@
 /* Global Variables */
 
 // Create API key
-let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
+let weatherApiBase = 'https://api.openweathermap.org/data/2.5/weather?';
 let apiKey = '&appid=161e1b851a819821e5bc1b43cef53eb5';	
+let baseURL = 'http://localhost:8000'
 
 
-
+// add event listen to trigger the get request
 document.getElementById('generate').addEventListener('click', performAction);
 function performAction(e){
 const zipCode =  'zip='+document.getElementById('zip').value;
 const countryCode = document.getElementById('CC').value;
-getDay(baseURL, zipCode, countryCode, apiKey)
+const userInput = document.getElementById('feelings').value;
+getData(zipCode, countryCode)
+  .then(data => postData(baseURL+'/datapost', data))
+  	// postData('/datapost')); 
 
+// .then(function(projectData){
+// 	console.log(projectData)
+// 	postData(localhost + '/datapost');
+// });
+
+};
+async function getData(zipCode , countryCode) 
+{
+  let response = await fetch(weatherApiBase+zipCode+','+countryCode+apiKey);
+  let data = await response.json();
+  // let parseData = await JSON.parse(data);
+  return data;
 }
 
+
 // async function that uses GET 
-const getDay = async (baseURL, zipCode, countryCode, apiKey) =>{ 
-  const request = await fetch(baseURL+zipCode+','+countryCode+apiKey);
+const getUserData = async ( )=>{
+  const request = await fetch(baseURL + apiKey);
   try {
   // Transform into JSON
-  const allData = await request.json()
+  const projectData = await request.json();
+  console.log(projectData)
+  return projectData;
   }
   catch(error) {
     console.log("error", error);
-    // appropriately handle the error
   }
 }
 
-
-
-
 // first post route
-const postData = async ( url = 'localhost:8000/datapost', data = {})=>{
-    console.log(data);
+const postData = async ( url = '', projectData = {})=>{
+    // console.log(projectData);
       const response = await fetch(url, {
       method: 'POST', 
       credentials: 'same-origin',
       headers: {
           'Content-Type': 'application/json',
       },
-     // Body data type must match "Content-Type" header        
-      body: JSON.stringify(data), 
+      body: JSON.stringify(projectData), 
     });
 
       try {
@@ -52,28 +66,28 @@ const postData = async ( url = 'localhost:8000/datapost', data = {})=>{
       }
   }
 
-const GetData = async ( url = 'localhost:8000/dataget', data = {})=>{
-    console.log(data);
-      const response = await fetch(url, {
-      method: 'GET', 
-      credentials: 'same-origin',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-     // Body data type must match "Content-Type" header        
-      body: JSON.stringify(data), 
-    });
 
-      try {
-        const newData = await response.json();
-        console.log(newData);
-        return newData;
-      }catch(error) {
-      console.log("error", error);
-      }
-  }
+// const GetData = async ( url = 'localhost:8000/dataget', data = {})=>{
+//     console.log(projectData);
+//       const response = await fetch(url, {
+//       method: 'GET', 
+//       credentials: 'same-origin',
+//       headers: {
+//           'Content-Type': 'application/json',
+//       },
+//      // Body data type must match "Content-Type" header        
+//       body: JSON.stringify(projectData), 
+//     });
 
-  // Create a new date instance dynamically with JS
+//       try {
+//         const projectData = await response.json();
+//         console.log(projectData);
+//         return projectData;
+//       }catch(error) {
+//       console.log("error", error);
+//       }
+//   }
+
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
