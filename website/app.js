@@ -13,7 +13,7 @@ const zipCode =  'zip='+document.getElementById('zip').value;
 const countryCode = document.getElementById('CC').value;
 const userInput = document.getElementById('feelings').value;
 getData(zipCode, countryCode)
-  .then(data => postData(baseURL+'/datapost', data))
+  .then(data => postData(baseURL+'/datapost', data, userInput))
   	// postData('/datapost')); 
 
 // .then(function(projectData){
@@ -47,7 +47,14 @@ const getUserData = async ( )=>{
 
 
 // first post route
-const postData = async ( url = '/datapost', projectData = {})=>{
+const postData = async ( url = 'http://localhost:8000/datapost', projectData = {}, input)=>{
+	let extractedData = {}
+
+extractedData['temp'] = projectData.main.temp;
+extractedData['feel'] = (input);
+extractedData['date'] = projectData.dt;
+console.log(extractedData);
+console.log(projectData);
     // console.log(projectData);
       const response = await fetch(url, {
       method: 'POST', 
@@ -55,7 +62,7 @@ const postData = async ( url = '/datapost', projectData = {})=>{
       headers: {
           'Content-Type': 'application/json',
       },
-      body: JSON.stringify(projectData), 
+      body: JSON.stringify(extractedData), 
     });
 
       try {

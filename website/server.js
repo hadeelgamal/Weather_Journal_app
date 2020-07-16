@@ -36,11 +36,11 @@ function datapost (req, res){
     // let projectData = req.body;
     var data = req.body
 // Create new entry for JS Object Endpoint
- projectData["temp"] = data.temp;
- projectData["feel"] = data.feeling;
- projectData["date"] = data.date;
+ projectData['temp'] = data.temp;
+ projectData['feel'] = data.feeling;
+ projectData['date'] = data.date;
 
-    console.log(req);
+    console.log(data);
 };
 
 // // Add a GET route
