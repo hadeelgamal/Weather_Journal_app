@@ -33,20 +33,21 @@ async function getData(zipCode , countryCode)
 
 // async function that uses GET 
 const getUserData = async ( )=>{
-  const request = await fetch(baseURL + apiKey);
+  const request = await fetch('/dataget');
   try {
   // Transform into JSON
-  const projectData = await request.json();
-  console.log(projectData)
-  return projectData;
+  const request = await request.json();
+  console.log(request)
+  return request;
   }
   catch(error) {
     console.log("error", error);
   }
 }
 
+
 // first post route
-const postData = async ( url = '', projectData = {})=>{
+const postData = async ( url = '/datapost', projectData = {})=>{
     // console.log(projectData);
       const response = await fetch(url, {
       method: 'POST', 
@@ -65,29 +66,3 @@ const postData = async ( url = '', projectData = {})=>{
       console.log("error", error);
       }
   }
-
-
-// const GetData = async ( url = 'localhost:8000/dataget', data = {})=>{
-//     console.log(projectData);
-//       const response = await fetch(url, {
-//       method: 'GET', 
-//       credentials: 'same-origin',
-//       headers: {
-//           'Content-Type': 'application/json',
-//       },
-//      // Body data type must match "Content-Type" header        
-//       body: JSON.stringify(projectData), 
-//     });
-
-//       try {
-//         const projectData = await response.json();
-//         console.log(projectData);
-//         return projectData;
-//       }catch(error) {
-//       console.log("error", error);
-//       }
-//   }
-
-let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
-

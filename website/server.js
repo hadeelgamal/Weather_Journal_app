@@ -2,40 +2,6 @@
 const express = require('express');
 // Start up an instance of app
 const app = express();
-
-const projectData = {};
-// // POST method route
-app.post('/datapost', datapost);
-function datapost (req, res){
-// projectData.push(req.body);
-    let projectData = req.body;
-    console.log(req);
-};
-
-// app.post ('/newData', newData);
-// function newData(){
-// 	newEntry = { 
-// 		temperature: req.body.temperature
-// 		date: req.body.date
-// 		userResponse: req.body.userResponse
-
-// 	}
-// }
-
-
-// projectData.push(newEntry)
-// res.send(projectData)
-// console.log(projectData)
-// // Add a GET route
-// change hello to projectData after testing
-app.get('/dataget', sendData);
-function sendData (request, response) {
-	console.log(request)
-  	response.send(projectData); 
-}; 
-
-
-
 /* Middleware*/
 /* Dependencies */
 const bodyParser = require('body-parser')
@@ -61,4 +27,29 @@ function listening() {
 	console.log("server running");
 	console.log('running on localhost: $(port)');
 }
+
+let projectData = {};
+// // POST method route
+app.post('/datapost', datapost);
+function datapost (req, res){
+// projectData.push(req.body);
+    // let projectData = req.body;
+    var data = req.body
+// Create new entry for JS Object Endpoint
+ projectData["temp"] = data.temp;
+ projectData["feel"] = data.feeling;
+ projectData["date"] = data.date;
+
+    console.log(req);
+};
+
+// // Add a GET route
+app.get('/dataget', sendData);
+function sendData (request, response) {
+	console.log(request)
+  	response.send(projectData); 
+}; 
+
+
+
 
