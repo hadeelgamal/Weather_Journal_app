@@ -14,14 +14,11 @@ const countryCode = document.getElementById('CC').value;
 const userInput = document.getElementById('feelings').value;
 getData(zipCode, countryCode)
   .then(data => postData(baseURL+'/datapost', data, userInput))
-  	// postData('/datapost')); 
+  	.then (
+	updateUI()
+  		)
+}
 
-// .then(function(projectData){
-// 	console.log(projectData)
-// 	postData(localhost + '/datapost');
-// });
-
-};
 async function getData(zipCode , countryCode) 
 {
   let response = await fetch(weatherApiBase+zipCode+','+countryCode+apiKey);
@@ -29,22 +26,6 @@ async function getData(zipCode , countryCode)
   // let parseData = await JSON.parse(data);
   return data;
 }
-
-
-// async function that uses GET 
-const getUserData = async ( )=>{
-  const request = await fetch('/dataget');
-  try {
-  // Transform into JSON
-  const request = await request.json();
-  console.log(request)
-  return request;
-  }
-  catch(error) {
-    console.log("error", error);
-  }
-}
-
 
 // first post route
 const postData = async ( url = 'http://localhost:8000/datapost', projectData = {}, input)=>{
@@ -73,3 +54,33 @@ console.log(projectData);
       console.log("error", error);
       }
   }
+
+// async function that uses GET 
+const getUserData = async ( )=>{
+  const request = await fetch('/dataget');
+  try {
+  // Transform into JSON
+  const request = await request.json();
+  console.log(request)
+  return request;
+
+  }
+  catch(error) {
+    console.log("error", error);
+  }
+}
+
+  const updateUI = async () => {
+	const request = await fetch ('http://localhost:8000/dataget');
+	try {
+		const extractedData = await request.json();
+		document.getElementById('temp').innerHTML = extractedData['temp'];
+		document.getElementById('date').innerHTML = extractedData['date'];
+		document.getElementById('feelings').innerHTML = extractedData['feel'];
+
+	}
+	  catch(error) {
+    console.log("error", error);
+  }
+}
+
