@@ -14,7 +14,7 @@ const cors = require('cors');
 app.use(cors());
 
 // Initialize the main project folder
-app.use(express.static('website'));
+app.use(express.static('.'));
 
 
 // Setup Server
@@ -37,19 +37,21 @@ function datapost (req, res){
     var data = req.body
 // Create new entry for JS Object Endpoint
  projectData['temp'] = data.temp;
- projectData['feel'] = data.feeling;
+ projectData['temp_feel'] = data.temp_feel;
  projectData['date'] = data.date;
 
-    console.log(data);
+    console.log('post',projectData);
 };
 
 // // Add a GET route
 app.get('/dataget', sendData);
 function sendData (request, response) {
-	console.log(request)
+	console.log(projectData);
   	response.send(projectData); 
 }; 
 
 
-
+app.get('/', function(req, res) {
+    res.sendFile('./index.html');
+});
 

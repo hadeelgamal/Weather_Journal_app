@@ -32,7 +32,7 @@ const postData = async ( url = 'http://localhost:8000/datapost', projectData = {
 	let extractedData = {}
 
 extractedData['temp'] = projectData.main.temp;
-extractedData['feel'] = (input);
+extractedData['temp_feel'] = projectData.main.feels_like;
 extractedData['date'] = projectData.dt;
 console.log(extractedData);
 console.log(projectData);
@@ -76,8 +76,8 @@ const getUserData = async ( )=>{
 		const extractedData = await request.json();
 		document.getElementById('temp').innerHTML = extractedData['temp'];
 		document.getElementById('date').innerHTML = extractedData['date'];
-		document.getElementById('feelings').innerHTML = extractedData['feel'];
-
+		document.getElementById('temp_feel').innerHTML = extractedData['temp_feel'];
+    console.log(extractedData);
 	}
 	  catch(error) {
     console.log("error", error);
