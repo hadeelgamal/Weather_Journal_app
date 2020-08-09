@@ -28,20 +28,18 @@ function listening() {
 	console.log('running on localhost:'+ port);
 }
 
-let projectData = {};
-// // POST method route
-app.post('/datapost', datapost);
-function datapost (req, res){
 // projectData.push(req.body);
     // let projectData = req.body;
-    var data = req.body
-// Create new entry for JS Object Endpoint
- projectData['temp'] = data.temp;
- projectData['temp_feel'] = data.temp_feel;
- projectData['date'] = data.date;
-
-    console.log('post',projectData);
+app.post('/datapost', datapost);
+function datapost (req, res){
+projectData.date = req.body.date;
+projectData.temp = req.body.temperature;
+projectData.feelings = req.body.userContent;
+res.send(projectData)
+console.log('post',projectData);
 };
+
+
 
 // // Add a GET route
 app.get('/dataget', sendData);
