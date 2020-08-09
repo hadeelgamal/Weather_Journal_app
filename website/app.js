@@ -51,6 +51,7 @@ console.log("error", error);
 }
 };
 
+
 // async function that uses GET
 const getUserData = async () => {
   const request = await fetch("/dataget");
@@ -76,4 +77,3 @@ document.getElementById('content').innerHTML=allData.feelings;
 console.log('error',error);
 }
 }
-
