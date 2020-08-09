@@ -28,8 +28,7 @@ function listening() {
 	console.log('running on localhost:'+ port);
 }
 
-// projectData.push(req.body);
-    // let projectData = req.body;
+let projectData = {};
 app.post('/datapost', datapost);
 function datapost (req, res){
 projectData.date = req.body.date;
